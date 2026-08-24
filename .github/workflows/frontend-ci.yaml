@@ -49,4 +49,4 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Build docker
-        run: docker build --tag mp-frontend:latest.
+        run: docker build --tag mp-frontend:latest .
