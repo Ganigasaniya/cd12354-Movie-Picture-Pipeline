@@ -53,4 +53,4 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Build docker
-        run: docker build --tag mp-backend:latest.
+        run: docker build --tag mp-backend:latest .
