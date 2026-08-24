@@ -1,5 +1,5 @@
 name: Backend Continuous Deployment
-on:
+"on":
   push:
     branches: [main]
     paths: ['starter/backend/**']
