@@ -1,5 +1,5 @@
 name: Frontend Continuous Deployment
-on:
+"on":
   push:
     branches: [main]
     paths: ['starter/frontend/**']
