@@ -35,7 +35,7 @@ jobs:
       - uses: actions/setup-node@v16
       - run: npm ci
         working-directory: starter/frontend
-      - run: docker build -t mp-frontend:latest.
+      - run: docker build --tag mp-frontend:latest .
         working-directory: starter/frontend
 
   deploy:
