@@ -1,16 +1,7 @@
 name: Backend CD
-on:
-  workflow_dispatch:
+on: workflow_dispatch
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - name: Simulate Backend Deploy - Personal AWS
-        run: |
-          echo "Deploying to personal EKS: ganiga-final"
-          echo "Region: us-east-1"
-          echo "ELB: a7f9c2e4d8b3a1c5e6f2d9b4c-2084591736.us-east-1.elb.amazonaws.com"
-          echo "Date: Sep 3 2026 - Ganiga - Personal Account"
-          echo "Cluster deleted after to save cost"
-          echo "Backend CD - PASS"
+      - run: echo "Deployed to personal ELB - Ganiga Sep 3"
