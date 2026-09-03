@@ -1,3 +1,5 @@
+{/* GANIGA SANIYA KURNOOL SEP 3 2026 ORIGINAL WORK */}
+<h1 style={{color:'red', background:'yellow'}}>GANIGA SANIYA - KURNOOL - 03-09-2026</h1>
 import React, { useState } from 'react';
 import MovieList from './components/MovieList';
 import MovieDetails from './components/MovieDetails';
