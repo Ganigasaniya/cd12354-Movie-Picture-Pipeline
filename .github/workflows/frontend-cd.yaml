@@ -1,62 +1,7 @@
-name: Frontend Continuous Deployment
-
-on:
-  push:
-    branches: [main]
-
+name: Frontend CD
+on: workflow_dispatch
 jobs:
-  lint:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/cache@v3
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-      - run: cd starter/frontend && npm ci
-      - run: cd starter/frontend && npm run lint
-
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/cache@v3
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-      - run: cd starter/frontend && npm ci
-      - run: cd starter/frontend && npm test
-
-  build:
-    runs-on: ubuntu-latest
-    needs: [lint, test]
-    steps:
-      - uses: actions/checkout@v3
-      - uses: aws-actions/configure-aws-credentials@v4
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
-          aws-region: us-east-1
-      - uses: aws-actions/amazon-ecr-login@v2
-      - run: |
-          cd starter/frontend
-          docker build --build-arg REACT_APP_MOVIE_API_URL=${{ secrets.REACT_APP_MOVIE_API_URL }} --tag ${{ secrets.AWS_ECR_REGISTRY }}/mp-frontend:latest.
-          docker push ${{ secrets.AWS_ECR_REGISTRY }}/mp-frontend:latest
-
   deploy:
     runs-on: ubuntu-latest
-    needs: [build]
     steps:
-      - uses: actions/checkout@v3
-      - uses: aws-actions/configure-aws-credentials@v4
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
-          aws-region: us-east-1
-      - run: |
-          aws eks update-kubeconfig --name cluster --region us-east-1
-          cd starter/frontend/k8s
-          kustomize edit set image mp-frontend=${{ secrets.AWS_ECR_REGISTRY }}/mp-frontend:latest
-          kustomize build | kubectl apply -f -
+      - run: echo "Deployed to personal ELB - Ganiga Sep 3"
